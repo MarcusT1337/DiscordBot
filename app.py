@@ -6,8 +6,7 @@ import json
 import requests
 #Aquiring discord token from the .env file
 load_dotenv()
-#From here down we set up the chatbot
-# We are essentially making a POST request to one endpoint and we create a convenience Class to pass in prompts, temperature and model.
+
 
 groq_api_key = os.getenv("GROQ_API_KEY")
 MODEL = "llama-3.3-70b-versatile"
@@ -35,9 +34,6 @@ class MyCustomOpenAI:
             "stream": False,  # no streaming or output
             "temperature": self.temperature,
         }
-        # Use HTTP POST method from Requests library
-
-        # In future examples we will use OpenAI library instead of requests directly but this is for demo purposes.
         response = requests.post(
             url=self.model_endpoint, headers=self.headers, data=json.dumps(payload)
         ).json()
@@ -49,9 +45,6 @@ client = MyCustomOpenAI(
     temperature=0.0,
 )
 
-response = client.generate_text(
-    "What is an the difference between Data Science, Data Engineering and Data Analysis?"
-)
 
 #From here down is the discord bot
 
